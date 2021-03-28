@@ -1,0 +1,40 @@
+1. Write a program to reverse an array or string
+2. https://www.geeksforgeeks.org/maximum-and-minimum-in-an-array/
+3. Kth smallest element
+4. Sort an array of 0s, 1s and 2s
+5. Move all negative numbers to beginning and positive to end with constant extra space
+6. Find the Union and Intersection of the two sorted arrays.
+7. Write a program to cyclically rotate an array by one.
+8. find Largest sum contiguous Subarray [V. IMP]
+9. Minimise the maximum difference between heights [V.IMP]
+10. Minimum no. of Jumps to reach end of an array
+11. Insert into array
+12. Delete element from array
+13. Program to find largest and second largest element in array.
+14. Check if an Array is Sorted
+15. Remove duplicate element from array
+16. Move all zeros to end of array
+17. Left Rotate an Array by One
+18. Left Rotate an Array by D Position
+19. Leaders in an Array problem - An element is called the leader of an array if there is no element greater than it on the right side.
+20. Maximum Difference Problem with Order - Maximum Difference problem is to find the maximum of arr[j] - arr[i] where j>i.
+21. Frequencies in a Sorted Array
+22. Stock Buy and Sell problem (Part 2)
+23. Trapping Rain Water Problem.
+24. Find count of maximum consecutive 1s in a binary array.
+25. Maximum sub array sum
+26. problem to find the length of the longest sub array that has alternating even odd elements.
+27. find maximum circular sum sub array of a given array
+28. Majority element is an element that appears more than n/2 times in an array of size n. In this video, two methods to find majority element in an array are discussed.
+29. Given a binary array, we need to find the minimum of number of group flips to make all array elements same.  In a group flip, we can flip any set of consecutive 1s or 0s.
+Sliding window problem
+-----------------------------------------
+30. Maximum Sum of K Consecutive elements
+31. Find sub array with given sum
+-----------------------------------------
+32. Prefix sum array
+33. Equilibrium Point
+34. Maximum Occurring Element
+
+
+

@@ -1,0 +1,34 @@
+1. Program to print frequency of character in sorted order
+2. Initialize String
+3. Substring index example.
+4. Check string is palindrome or not
+5. Check if string is subsequence of other I/P - s1 = ABCD s2= AD O/P - true , I/P - s1 = ABCDE s2= AED O/P - false
+6. Program to check anagram
+7. Given a string, the task is to find the first character (whose leftmost appearance is first) that repeats.
+8. Check if result string is valid shuffle of string first and second
+9. Reverse string
+10. Print Duplicate
+11. Check Strings are rotations of each other
+12. Index of leftmost non-repeating element
+13. Reversing words in the string
+14. Count and Say Problem
+15. Longest Palindromic Subsequence and Length of Longest Palindromic Subsequence
+16. Function to find the longest repeating subsequence
+17. Print subsequence string
+18. Program to print all permutations of a given string
+Pattern Searching
+-----------------
+19. Given a pattern and a text, we need to print all occurrences of the pattern in the text - O((m+n-1)*m) solution.
+20. Given a pattern with distinct characters and a text, we need to print all occurrences of the pattern in the text - improved Naive pattern searching with Theta(n) time complexity
+21. Rabin Karp Algorithm - 0((N-M+1)*M)
+22. KMP - Part1
+23. KMP - Part2
+24. Check if Strings are Rotations
+25. Given a text and a pattern, the task is to find if there is anagram of pattern present in text - two solutions to solve the problem.
+
+
+
+
+
+
+
