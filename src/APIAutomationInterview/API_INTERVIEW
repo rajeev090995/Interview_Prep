@@ -1,0 +1,384 @@
+REST API COURSE
+
+
+API-application programming interface allows 2 applications(working in diff languages) to talk to each other.
+Client , Server
+
+eg-> 1. Diff Airline APIS exposed are consumed by Paytm app 2. Social Login
+
+REST API-> API uses REST Architecture design (Representation state transfer) (set of constraints or principles)
+a. Client Server  (in diff language)
+b. Stateless 
+c. Cache (storing  response of Http method at server end for better performance)
+d. Uniform Interface
+e. Code on Demand
+f. Layered System
+
+
+*JSON-Javascript object notation, light weight, human readable,language independent, consist of collection of key-value pairs ie. JSON Object
+
+a string
+a number
+an object (JSON object)
+an array
+a boolean
+null
+
+** HTTP VS REST->(HYPERTEXT TRANSFER PROTOCOL application protocol-transfer data over web) uses- Client Server Client Server Architecture
+
+*REST API uses HTTP protocol (to tranfer data over web)or SMTP or FTP
+
+** UNiform resource locator-
+** API request- Http method, Base URL (identify server on a network) having domain name, endpoint (resource)
+
+POSTMAN-execute or test rest API- Workspace, COllection, mock server, Manage Env.
+
+** JSON- Rest assured uses JsonPath implementation which uses Groovy Gpath syntax.
+Json Slurper class uses parseText to conver json to grovvy Object like String, Interger/BigDecimal/ Arraylist/ LinkesHashMap.
+
+https://groovy-playground.appspot.com/
+
+import groovy.json.JsonSlurper;
+
+
+def jsonSlurper = new JsonSlurper()
+def object = jsonSlurper.parseText '''
+    
+}'''
+query=object.data.nbPaymentOption[0]
+
+2. Jayway Json path
+
+
+HTTP methods
+
+total=39 methods
+GET- tranfer current representation of target resource (fetch data from the server), safe,idempotent,Cacheable
+HEAD-same as GET but only transfer status line and header section, no response body, safe,idempotent,Cacheable
+eg-> expensive GET eg-> large file to be downloaded. get file size first using HEAD
+POST-perform resource specific processing on request payload, create or update resource, not safe, not idempotent
+PUT- replace all current representations of target resource with request payload (replace or create a new one),no response body, not safe, idempotent, not cacheable
+Delete- Delete current representation of target resource- Optional Request & response body, not safe, idempotent, not cacheable
+OPTIONS- Describe communication options for target resource 
+eg-> what all HTTP method or headers can be used on resouce ,safe,idempotent,not Cacheable
+
+PATCH-partial modification of target resource, not safe, not idempotent (eg-> counter field auto incrementing),not Cacheable
+PUT- update whole resource
+PATCH- part of resource
+
+
+STATUS CODES-
+1XX- request received, continuing processing 
+2XX- request received, processed , accepted
+3XX- redirection- further action needs to be taken in order to complete the request
+4XX- client error
+5XX- server error- failed to fulfill a valid request
+
+
+MOCK SERVER POSTMAN
+
+** REST ASSURED- java library to automate REST API.
+
+1. Why static imports? -> readbility, disadvantage- not even what all methods are avaiable if u r not using class name.
+2. Method Chaining- given().when().then() All these methods returns type of same class which implements RequestSpecification interface
+given()-> all info that is part of request(query,path param,requestBody,Authorisation,header)
+when()->action we are going to take
+then()->validate outcome
+
+
+
+*Hamcrest is assertion library used for assertions , used for rest assured
+assertThat().statusCode(200).body("gPath",equalTo(),"gPath",hasItem(""),"gPath",hasItems("",""));
+
+*extract response
+Response=extract().response(); //Response is interface
+
+*extract field
+
+1.response.path()
+2.JsonPath jsonPath= new  JsonPath(response.asString()); jsonPath.getString(gPath);
+3.JsonPath.from(response.asString()).getString("gPath")
+
+*Hamcrest vs Testng-> readablity ,descriptive error messages, type safety 
+
+hasItem() -> check single element in a collection
+not(hasItem()) -> check single element is NOT in a collection
+hasItems() -> Check all elements are in a collection
+contains() -> Check all elements are in a collection and in a strict order
+containsInAnyOrder() -> Check all elements are in a collection and in any order
+empty() -> Check if collection is empty
+not(emptyArray()) -> Check if the Array is not empty
+hasSize() -> Check size of a collection
+everyItem(startsWith()) -> Check if every item in a collection starts with specified string
+
+hasKey() -> Map -> Check if Map has the specified key [value is not checked]
+hasValue() -> Map -> Check if Map has at least one key matching specified value
+hasEntry() -> Maps -> Check if Map has the specified key value pair
+equalTo(Collections.EMPTY_MAP) -> Maps [Check if empty]
+allOf() -> Matches if all matchers matches
+anyOf() -> Matches if any of the matchers matches
+
+Numbers:
+greaterThanOrEqualTo()
+lessThan()
+lessThanOrEqualTo()
+
+
+
+*** Logging 
+
+1.given()..log().all.when().then().log().all.assertThat()
+2.log.body() 3.log().headers
+4.log.ifError()
+5.log.ifValidationFails()
+
+** BlackList Header
+List headers = new ArrayList<String>();
+headers.add("Accept");
+headers.add("set-cookie");
+
+.given().config(RestAssured.config().logConfig(LogConfig.logConfig().blacklistHeader(headers)))
+.log().headers()
+.then().log().headers()
+
+****REST ASSURED HEADER (addititonal information)
+
+1).header("","")
+
+2)Header header= new Header(); .header(header)
+
+3)headers("","")
+
+4)Header header1= new Header(); Headers headers= new Headers(header1,header2); .headers(headers)
+
+5.using map
+
+6. multi value header case
+
+7. in assertion after assertThat().header("","")
+8. Headers h=extract().headers();// h.get("").getName()
+
+9. for(Header h:extractedHeaders){h.getName(); h.getValue();}} //print all headers
+10. List<String> l=extract().getValues("") // get multipleHeader values
+
+
+*****************REQUEST SPECIFICATION
+
+*TestSpecificationImpl constructor is made of RequestSpecificationImpl and ReponseSpecificationImpl which implements RequestSpecification interface
+
+1) RequestSpecification requestSpecification=given().baseUri("").header("","");
+2) given(requestSpecification) or given().spec(requestSpecification)
+
+* reuse RequestSpecification
+1)Response response=requestSpecification.get("");
+
+*****************REQUEST SPECIFICATION Builder
+RequestSpecBuilder r=new RequestSpecBuilder();  r.addHeader(); r.setBaseUri(); RequestSpecification req= r.build();
+
+******************DEFAULT Request Specification
+RestAssured.requestSpecification=given().baseUri("").header("","");
+
+******************Query Request Specification
+
+*******************REPONSE SPECIFICATION
+ResponseSpecification res=RestAssured.expect().statusCode();   then().spec(res).log().all();
+*******************REPONSE SPECIFICATION Builder
+ResponseSpecBuilder r=new ResponseSpecBuilder(); ResponseSpecification res=r.build();
+
+
+******************************REQUEST PAYLOAD**********************
+1. String variable 
+
+2. Send a file- when u dont want to hardcode string variable in code use .json file and use this given().body(file.json);
+
+3. HashMap<String,Object> map= new HashMap<>(); use in case of nested json
+
+Hashmap to JsonObject using serialisation using Jackson Databind is required as dependency Else error will come
+
+4. List of Json Object List<HashMap<String,String>>
+
+Encoding- mechanism to convert unicode(every characters has represented by decimal numbers) characters to binary numbers
+
+
+*********************************************Query Param
+
+1. .queryParam("","") 2. Hashmap use .queryParams(map)
+multiple value query Param case
+
+*********************************************FORM_DATA (KEY, VALUE PAIRS) (MULTI-PART)-(DATA SENT IN PARTS TO SERVER)(WHEN U HAVE HUGE DATA)
+.multiPart("","") .multiPart("",new File()) .multiPart("",jsonObject,application/json)
+Content-Type will be multipart/form-data
+
+**********************************************FILE DOWNLOAD
+1. Byte array 2. a= eOutputStream(new File("result.apk")); a.write(byteArray) a.close();
+
+**********************************************FROM URL ENCODING (KEY VALUE PAIRS ARE URL ENCODED)
+key1=value1&key2=value2
+non alphanumeric characters are encoded
+.formParam()
+
+
+*************************************************Validate Json Schema
+1. .body(matchesJsonSchemaInClasspath("home.json"));
+2.  response.body
+
+************************************************SERIALISATION AND DESERIALISATION
+* JAVA object to Byte Stream is SERIALISATION
+* vice versa is DESERIALISATION
+* Byte stream is platform independent and can be stored in file, memory or DB
+
+************************************************SERIALISATION AND DESERIALISATION IN REST ASSURED (OBJECTMAPPING)
+
+* JAVA object  to JSON object is SERIALISATION
+* vice versa is DESERIALISATION
+Done using serialisers (Jackson,Gson)
+
+
+** content type based SERIALISATION
+** body(message, ObjectMapperType.JACKSON) Using an Explicit Serializer
+
+*** @JsonInclude(JsonImclude.include.NON_NULL
+*** @JsonInclude(JsonImclude.include.NON_DEFAULT
+*** @JsonInclude(JsonImclude.include.NON_EMPTY (EMPTY AND NULL values removal from Json)
+*** @JsonIgnoreProperties(value={"id"}, allow_setters=true)
+****@JsonIgnoreProperties(ignoreUnknown=true)
+
+setters for deserialisation and getters for serialisation
+
+
+***inheritance for common field (case where field type is different in request and response payload)
+
+*********************************************AUTHENTICATION VS AUTHORISATION
+
+AUTHENTICATION= proves you are who you say you are.(proves your identity)
+AUTHORISATION= proves what task or actions you can perform / proves your right to access
+authentication is the process of verifying who a user is, while authorization is the process of verifying what they have access to.
+
+Encoding is the process of converting data from one form to another so that it can be properly consumed by a different type of system. Encoding does not guarantee the secrecy of the information. 
+
+Hashing is the process of generating an arbitrary value from a set of data using some complex mathematical function. Hashing’s primary goal is to ensure the integrity of the data.
+
+Ecryption is also a process of transforming data from one form to another. But the primary objective or goal is to keep the information secret. That means encryption guarantees the secrecy of the information. Unlike encoding Encryption requires a KEY to covert the data. Reverse process of encryption is called decryption.
+
+***HTTP AUTHENTICATION SCHEMES
+1.BASIC
+username:password is BASE64 encoded which is not secure
+passed"Basic encodedString" in header with key Authorisation
+
+*****DIGEST
+based on challenge response paradigm
+server sends some field like algo=MD5 which then client hashes username & password with MD5 algo and sends it in encrypted format.
+
+*********BEARER
+*Bearer token is sent as authorisation header
+* Bearer is a person or entity who holds security token to ensure access to a certain resource
+Server sends bearer token which client uses in subsequent request.
+
+Bearer authentication (also called token authentication) is an HTTP authentication scheme that involves security tokens called bearer tokens. The name “Bearer authentication” can be understood as “give access to the bearer of this token.” The bearer token is a cryptic string, usually generated by the server in response to a login request.
+
+
+** API KEY AUTH
+
+*****Oauth 
+* is used for authorisation 
+* layer build on top of oauth to provide identity.=OPEN ID CONNECT
+DELEGATED AUTHORISATION
+Oauth= authorising service so that it can use resources from another service on behalf of person
+
+eg-> frame photo application 
+Resource owner give access to client application to access proteced resource holded by resource server.
+issue access token to client application-authorisation server
+
+AUTHORISATION GRANT FLOW
+
+** client app sends scope(how much access is required) to authorisation server.
+** user 1st needs to authenticate and after that give permission requested by client app
+** after that authorisation server sends AUTH CODE (short lived) to client app. (BACKEND CHANNEL)
+** client app sends AUTH CODE to authorisation server.(BACKEND CHANNEL)
+** authorisation server sends ACCESS TOKEN/REFRESH TOKEN to client app.
+** now client app sends ACCESS TOKEN to fetch photo from resource server.
+
+IMPLICIT GRANT FLOW
+AUTH CODE steps is not present here (BACKEND CHANNEL)
+less secure 
+
+CLIENT CREDENTIALS FLOW
+
+Here user is not present. Directly a service is requesting  another service by its own.
+Microservice architecture
+service A sends CLIENT ID(unique) plus CLIENT SECRET to authorisation server which then gives access token to service A.
+service A then use service of service B based on access token
+
+in case of COnnectt ID for authentication, ID_token(JWT) generated which client app can decode
+ID token assures client that the user that is trying to access the application is authenticated and is currently logged in.
+
+*************************************************************************
+
+
+**********************************SESSION BASED AUTHENTICATION
+
+Oauth-user is maintianed by the token as long as its valid whether u do it from browser/mobileApp/OtherService
+Session based authentication
+a. user state is maintained at server side 
+b. cookies stord at browser side
+********************************************FORM BASED AUTHENTICATION
+auth().form("John", "Doe", new FormAuthConfig("/j_spring_security_check", "j_username", "j_password")).
+
+********************************************
+relaxedHTTPSValidation()
+************************************************
+SessionFilter sessionFilter = new SessionFilter();
+
+given().
+          auth().form("John", "Doe").
+          filter(sessionFilter).
+when().
+          get("/formAuth").
+then().
+          statusCode(200);
+
+
+given().
+          filter(sessionFilter). // Reuse the same session filter instance to automatically apply the session id from the previous response
+when().
+          get("/x").
+then().
+          statusCode(200);
+
+**********************************************************************
+COOKIE
+small piece of data stored in browser storage designed to authenticate the user
+maintains user sessions/state. records user browsing activity
+
+***********************************************************************
+1. using session Filter and sessionID
+2. cookie("",sessionFilter.getSessionID)
+3. new Cookie.Builder("","").build();
+4. new Cookies.uilder(cookie1,cookie2);
+5. response.getCookie();
+5. response.getDetailedCookie();
+6. Map<string,string> m= response.getCookies()
+7. Cookies= response.getDetailedCookies()  cookies.asList()
+
+
+
+**************************************************************************
+CLIENT ID = dfd28f6d548e440fa1464db3b553b8df
+CLIENT_SECRET= fdcb53db62df4d70884bb58d83f2a98a
+
+playlist-modify-privateplaylist-read-privateplaylist-modify-publicplaylist-read-collaborative
+
+
+
+
+https://localhost:8081/?code=AQDHr8ARIFVflUyrkZA8FYDzQRztmHmXaLQ9K8uzzwJXWLT-UusBAsRV_IqBdgEy7XFmR3usgazbW8vdtxBmlVOfobcqIHEp91PRkkmP240d_NZqIuN0mAj3acLtH7vgWKQIL3v_DQ_n6xngSz-wbrDlt6l7NWFZ2bAeG8u4pB_k6TyLCu37JCsh-QPEYqopEG9ArvGW09o0dwjPzeW7ZQT_Rjz5GjeLG-F1cq5Jtd0pFt83mLm9ZapxYMi5l7T4XyMYN8006YcOGZbBcd6eKQyKbZJMLv-0QWwJe_MScLw&state=34fFs29kd09
+
+
+
+{
+    "access_token": "BQAZgcUGxysNtZ_Wxf3-yZf6Y2najCl5RjSjYBbmz-rSJ-8m-p4pRCAP_6QNPdAaMEib_ev-mpa-xFc73LxsUeynO6Om-iDdRDb0fhnQ54fLcH7N2Y8ITTJ8gg4B3SemNaagA0OyrggxlHekfbtEyXU3FiCzRBhAvTJaLBYrkaX5u27k2tu3zJahc1HK_JpxN3b8CWZtJAE6Vhv1UDTt_m_TavLANTNCKf1x_zn9lFBu",
+    "token_type": "Bearer",
+    "expires_in": 3600,
+    "refresh_token": "AQC8mh3z2f-upStbBC3B8Ci2B9pK9oKcgX-3EQs19vPH5sprYFtLFMvY0WltqjgToF5ns52vjIbQdfyPFKzoQtfh507e2Beoq8Uksgm9cuQ9XVDN-OoKZK4aX1hichMyOyE",
+    "scope": "playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public"
+}

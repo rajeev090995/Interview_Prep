@@ -1,9 +1,0 @@
-Array list use dynamic array method which
-adding a number or deleting a number in between array is difficult since you have to change the below numbers indexes
-slow in assigning the value
-Searching is fast.
-
-Linked list use double liked list method
-adding a number or deleting a number is easy since you are just change the previous and next node of that element.
-Fast is in assigning the value
-Searching is very slow

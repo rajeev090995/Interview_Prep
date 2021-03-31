@@ -1,5 +1,13 @@
 1. Write a program Bitwise Operators in Java and introduces us to the Bitwise AND and Bitwise OR operators in Java.
-2. second part of the Bitwise Operators in Java and introduces us to the Bitwise NOT and Bitwise Left shift operators in Java.
+2. Second part of the Bitwise Operators in Java and introduces us to the Bitwise NOT and Bitwise Left shift operators in Java.
+3. Bitwise Operators in Java and introduces us to the Bitwise Right Shift and unsigned right shift operators in Java.
+4. Check Kth bit is set or not
+5. Count set bits.
+6. Program to check whether a number is a power of 2 or not.
+7. This program takes an array of integers and displays the number that has odd occurrences in the array.
+8. This program takes an array of integers and displays the two number that has odd occurrences in the array.
+9. This program generates the Power Set of a given Set using bitwise operators
+
 
 
 
