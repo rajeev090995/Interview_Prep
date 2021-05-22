@@ -1,0 +1,23 @@
+1. Binary search
+2. Given a sorted array with repetition and an element x, we need to find index of first occurrence of x.
+3. Given a sorted array with repetition and an element x, we need to find index of last occurrence of x.
+4. Given a sorted array and an element x, we need to count occurrences of x in the array.
+5. Given a sorted binary array, we need to count 1s in this array.
+6. Given an integer, we need to find floor of its square root.
+7. Given an infinite sized array, we need to write an efficient solution to search an element.
+8. O(Log n) approach to search an element in a sorted and rotated array.
+9. Find a peak element.
+10. Find pair in unsorted array which gives sum X
+11. Find pair in sorted array which gives sum X
+12. Find triplet in an array which gives sum X
+13. Median of 2 sorted array.
+14. Majority element is an element that appears more than n/2 times in an array of size n.
+15. Repeating Elements
+16. Allocate Minimum number of Pages
+17. Allocate Minimum Pages (Binary Search)
+
+
+
+
+
+
